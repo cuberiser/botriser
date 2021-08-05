@@ -9,7 +9,7 @@ client = commands.Bot(command_prefix=commands.when_mentioned_or('>'), intents = 
 apikey = os.environ['api']
 ai = randomstuff.AsyncClient(api_key = apikey )
 
-client.version = '1.0.0'
+client.version = '1.0.1'
 
 @client.event
 async def on_ready():
@@ -36,7 +36,7 @@ async def on_message(message):
     response = await ai.get_ai_response(message.content)
     await message.reply(response.message)
   try:
-    if message.content == client.user.mention:
+    if message.mentions[0] == client.user.mention:
       await message.reply('My prefix is >')
   
   except:
