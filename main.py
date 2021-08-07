@@ -36,7 +36,7 @@ async def on_message(message):
     response = await ai.get_ai_response(message.content)
     await message.reply(response.message)
   try:
-    if message.mentions[0] == client.user.mention:
+    if message.mentions[0] == client.user:
       await message.reply('My prefix is >')
   
   except:
@@ -71,20 +71,29 @@ async def on_command_error(ctx, error):
     raise error
 
 @client.command()
+@commands.is_owner()
 async def load(ctx, cog):
   await client.load_extension(f'cogs.{cog}')
   await ctx.send(f'I have loaded the {cog}')
 
 @client.command()
+@commands.is_owner()
 async def unload(ctx, cog):
   await client.unload_extension(f'cogs.{cog}')
   await ctx.send(f'I have loaded {cog}')
 
 @client.command()
+@commands.is_owner()
 async def reload(ctx, cog):
   await client.unload_extension(f'cogs.{cog}')
   await client.load_extension(f'cogs.{cog}')
   await ctx.send(f'I have reloaded {cog}')
+
+@client.command()
+@commands.has_permissions(manage_messages=True)
+async def spam(ctx, spam_amt: int=5, *, message):
+  for num in range(spam_amt):
+    await ctx.send(message)
 
 for cog in os.listdir('cogs'):
   if cog.endswith('.py') and not cog.startswith('_'):
