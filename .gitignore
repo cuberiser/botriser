@@ -1,0 +1,6 @@
+__pychache__/
+*.env
+*.json
+*.sql
+*.egg_info/
+dist/

@@ -1,5 +1,5 @@
-import discord
-from discord.ext import commands
+import nextcord as discord
+from nextcord.ext import commands
 from main import client as bot
 
 class utility(commands.Cog):
@@ -11,7 +11,7 @@ class utility(commands.Cog):
     print('The utility commands have been loaded')
   
   @commands.command(name='userinfo', aliases=['whois'], description = "gets a user's info")
-  async def userinfo(self, ctx, member: discord.Member=None):
+  async def userinfo(self, ctx, *, member: discord.Member=None):
     if member is None:
       member = ctx.author
     roles = [role for role in member.roles]
